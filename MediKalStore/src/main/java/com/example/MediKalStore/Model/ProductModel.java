@@ -6,16 +6,21 @@ import java.time.LocalDate;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="Product_Table")
 public class ProductModel {
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="product_id")
 	private BigInteger productId;
 	
@@ -31,8 +36,7 @@ public class ProductModel {
 	@Column(name="product_exp_date")
 	private LocalDate productExpDate;
 	
-//	@ManyToOne
-//    @JoinColumn(name="cart_id")
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
     private CartModel cart;
 

@@ -16,11 +16,14 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="Customer_Table")
 public class CustomerModel {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="customer_id")
 	private BigInteger customerId;
 	
@@ -39,24 +42,9 @@ public class CustomerModel {
 	@Column(name="customer_phone")
 	private String customerPhone;
 	
-//	@OneToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "cart_id", referencedColumnName = "customer_id")
-//    private CartModel cart;
-//	
 	@OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cart_id")
     private CartModel cart;
-	
-//	@OneToMany(mappedBy="customer")
-//    private Set<OrderModel> listOfOrders;
-	
-//	 @OneToMany(
-//		        mappedBy = "customer_id_fk",
-//		        cascade = CascadeType.PERSIST,
-//		        fetch = FetchType.LAZY
-//		    )
-//	 private Set<OrderModel> listOfOrders;
-//	
 	 
 	 @OneToMany(mappedBy="customer", fetch = FetchType.LAZY)
 	 private Set<OrderModel> listOfOrders=new HashSet<OrderModel>();

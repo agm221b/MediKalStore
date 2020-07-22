@@ -6,10 +6,14 @@ import java.time.LocalDate;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="Order_Table")
@@ -17,13 +21,10 @@ public class OrderModel {
 	
 
 	@Id
-	@Column(name="order-id")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name="order_id")
 	private BigInteger orderId;
 	
-//	@ManyToOne
-//	@Column(name="cart_id")
-//	private BigInteger cartId;
-//	
 	@Column(name="order_amount")
 	private float orderAmount;
 	
@@ -32,16 +33,10 @@ public class OrderModel {
 	
 	@Column(name="order_date")
 	private LocalDate orderDate;
-	
-//	@ManyToOne(fetch = FetchType.LAZY)
-//    private CustomerModel customer;
-	
-//	@ManyToOne
-//    @JoinColumn(name = "customer_id_fk")
-//	 private CustomerModel customer;
-	
+
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
-	//@JoinColumn(name = "customer_id_fk")
+	@JoinColumn(name = "customer_id_fk")
 	private CustomerModel customer;
  
 	

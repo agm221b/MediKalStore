@@ -16,11 +16,14 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="Cart_Table")
 public class CartModel {
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="cart_id")
 	private BigInteger cartId;
 	
@@ -33,12 +36,10 @@ public class CartModel {
 	@Column(name="cart_payment_mode")
 	private String cartPaymentMode;
 	
-//	@OneToOne(mappedBy = "cart")
-//    private CustomerModel customer;
-	
 	@OneToOne(mappedBy = "cart", cascade = CascadeType.ALL,
             fetch = FetchType.LAZY, optional = false)
-  private CustomerModel customer;
+    private CustomerModel customer;
+	
 	
 	@OneToMany(mappedBy="cart")
     private Set<ProductModel> listOfProducts;
