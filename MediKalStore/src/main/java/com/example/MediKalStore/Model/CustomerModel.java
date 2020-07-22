@@ -45,6 +45,9 @@ public class CustomerModel {
 	@OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cart_id")
     private CartModel cart;
+	
+	@Column(name="delete_flag")
+	private int deleteFlag;
 	 
 	 @OneToMany(mappedBy="customer", fetch = FetchType.LAZY)
 	 private Set<OrderModel> listOfOrders=new HashSet<OrderModel>();
@@ -55,7 +58,7 @@ public class CustomerModel {
 	}
 
 	public CustomerModel(BigInteger customerId, String customerName, String customerPassword, String role,
-			String customerEmail, String customerPhone, CartModel cart, Set<OrderModel> listOfOrders) {
+			String customerEmail, String customerPhone, CartModel cart, int deleteFlag, Set<OrderModel> listOfOrders) {
 		super();
 		this.customerId = customerId;
 		this.customerName = customerName;
@@ -64,7 +67,78 @@ public class CustomerModel {
 		this.customerEmail = customerEmail;
 		this.customerPhone = customerPhone;
 		this.cart = cart;
+		this.deleteFlag = deleteFlag;
 		this.listOfOrders = listOfOrders;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((cart == null) ? 0 : cart.hashCode());
+		result = prime * result + ((customerEmail == null) ? 0 : customerEmail.hashCode());
+		result = prime * result + ((customerId == null) ? 0 : customerId.hashCode());
+		result = prime * result + ((customerName == null) ? 0 : customerName.hashCode());
+		result = prime * result + ((customerPassword == null) ? 0 : customerPassword.hashCode());
+		result = prime * result + ((customerPhone == null) ? 0 : customerPhone.hashCode());
+		result = prime * result + deleteFlag;
+		result = prime * result + ((listOfOrders == null) ? 0 : listOfOrders.hashCode());
+		result = prime * result + ((role == null) ? 0 : role.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		CustomerModel other = (CustomerModel) obj;
+		if (cart == null) {
+			if (other.cart != null)
+				return false;
+		} else if (!cart.equals(other.cart))
+			return false;
+		if (customerEmail == null) {
+			if (other.customerEmail != null)
+				return false;
+		} else if (!customerEmail.equals(other.customerEmail))
+			return false;
+		if (customerId == null) {
+			if (other.customerId != null)
+				return false;
+		} else if (!customerId.equals(other.customerId))
+			return false;
+		if (customerName == null) {
+			if (other.customerName != null)
+				return false;
+		} else if (!customerName.equals(other.customerName))
+			return false;
+		if (customerPassword == null) {
+			if (other.customerPassword != null)
+				return false;
+		} else if (!customerPassword.equals(other.customerPassword))
+			return false;
+		if (customerPhone == null) {
+			if (other.customerPhone != null)
+				return false;
+		} else if (!customerPhone.equals(other.customerPhone))
+			return false;
+		if (deleteFlag != other.deleteFlag)
+			return false;
+		if (listOfOrders == null) {
+			if (other.listOfOrders != null)
+				return false;
+		} else if (!listOfOrders.equals(other.listOfOrders))
+			return false;
+		if (role == null) {
+			if (other.role != null)
+				return false;
+		} else if (!role.equals(other.role))
+			return false;
+		return true;
 	}
 
 	public BigInteger getCustomerId() {
@@ -123,6 +197,14 @@ public class CustomerModel {
 		this.cart = cart;
 	}
 
+	public int getDeleteFlag() {
+		return deleteFlag;
+	}
+
+	public void setDeleteFlag(int deleteFlag) {
+		this.deleteFlag = deleteFlag;
+	}
+
 	public Set<OrderModel> getListOfOrders() {
 		return listOfOrders;
 	}
@@ -131,10 +213,13 @@ public class CustomerModel {
 		this.listOfOrders = listOfOrders;
 	}
 
-	
-
-	
-	
+	@Override
+	public String toString() {
+		return "CustomerModel [customerId=" + customerId + ", customerName=" + customerName + ", customerPassword="
+				+ customerPassword + ", role=" + role + ", customerEmail=" + customerEmail + ", customerPhone="
+				+ customerPhone + ", cart=" + cart + ", deleteFlag=" + deleteFlag + ", listOfOrders=" + listOfOrders
+				+ "]";
+	}
 
 	
 	

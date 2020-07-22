@@ -44,13 +44,16 @@ public class CartModel {
 	@OneToMany(mappedBy="cart")
     private Set<ProductModel> listOfProducts;
 	
+	@Column(name="delete_flag")
+	private int deleteFlag;
+	
 	public CartModel()
 	{
 		
 	}
 
 	public CartModel(BigInteger cartId, float cartAmount, String cartAddress, String cartPaymentMode,
-			CustomerModel customer, Set<ProductModel> listOfProducts) {
+			CustomerModel customer, Set<ProductModel> listOfProducts, int deleteFlag) {
 		super();
 		this.cartId = cartId;
 		this.cartAmount = cartAmount;
@@ -58,6 +61,7 @@ public class CartModel {
 		this.cartPaymentMode = cartPaymentMode;
 		this.customer = customer;
 		this.listOfProducts = listOfProducts;
+		this.deleteFlag = deleteFlag;
 	}
 
 	public BigInteger getCartId() {
@@ -108,6 +112,14 @@ public class CartModel {
 		this.listOfProducts = listOfProducts;
 	}
 
+	public int getDeleteFlag() {
+		return deleteFlag;
+	}
+
+	public void setDeleteFlag(int deleteFlag) {
+		this.deleteFlag = deleteFlag;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -117,6 +129,7 @@ public class CartModel {
 		result = prime * result + ((cartId == null) ? 0 : cartId.hashCode());
 		result = prime * result + ((cartPaymentMode == null) ? 0 : cartPaymentMode.hashCode());
 		result = prime * result + ((customer == null) ? 0 : customer.hashCode());
+		result = prime * result + deleteFlag;
 		result = prime * result + ((listOfProducts == null) ? 0 : listOfProducts.hashCode());
 		return result;
 	}
@@ -152,6 +165,8 @@ public class CartModel {
 				return false;
 		} else if (!customer.equals(other.customer))
 			return false;
+		if (deleteFlag != other.deleteFlag)
+			return false;
 		if (listOfProducts == null) {
 			if (other.listOfProducts != null)
 				return false;
@@ -164,11 +179,8 @@ public class CartModel {
 	public String toString() {
 		return "CartModel [cartId=" + cartId + ", cartAmount=" + cartAmount + ", cartAddress=" + cartAddress
 				+ ", cartPaymentMode=" + cartPaymentMode + ", customer=" + customer + ", listOfProducts="
-				+ listOfProducts + "]";
+				+ listOfProducts + ", deleteFlag=" + deleteFlag + "]";
 	}
-	
-	
-	
 
 	
 

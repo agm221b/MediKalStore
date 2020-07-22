@@ -31,13 +31,16 @@ public class AdminModel {
 	@Column(name="admin_phone")
 	private String adminPhone;
 	
+	@Column(name="delete_flag")
+	private int deleteFlag;
+	
 	public AdminModel()
 	{
 		
 	}
 
 	public AdminModel(Boolean adminId, String adminName, String adminPassword, String role, String adminEmail,
-			String adminPhone) {
+			String adminPhone, int deleteFlag) {
 		super();
 		this.adminId = adminId;
 		this.adminName = adminName;
@@ -45,6 +48,7 @@ public class AdminModel {
 		this.role = role;
 		this.adminEmail = adminEmail;
 		this.adminPhone = adminPhone;
+		this.deleteFlag =  deleteFlag;
 	}
 
 	public Boolean getAdminId() {
@@ -53,6 +57,14 @@ public class AdminModel {
 
 	public void setAdminId(Boolean adminId) {
 		this.adminId = adminId;
+	}
+
+	public int getDeleteFlag() {
+		return deleteFlag;
+	}
+
+	public void setDeleteFlag(int deleteFlag) {
+		this.deleteFlag = deleteFlag;
 	}
 
 	public String getAdminName() {
@@ -104,6 +116,7 @@ public class AdminModel {
 		result = prime * result + ((adminName == null) ? 0 : adminName.hashCode());
 		result = prime * result + ((adminPassword == null) ? 0 : adminPassword.hashCode());
 		result = prime * result + ((adminPhone == null) ? 0 : adminPhone.hashCode());
+		result = prime * result + deleteFlag;
 		result = prime * result + ((role == null) ? 0 : role.hashCode());
 		return result;
 	}
@@ -142,6 +155,8 @@ public class AdminModel {
 				return false;
 		} else if (!adminPhone.equals(other.adminPhone))
 			return false;
+		if (deleteFlag != other.deleteFlag)
+			return false;
 		if (role == null) {
 			if (other.role != null)
 				return false;
@@ -153,8 +168,10 @@ public class AdminModel {
 	@Override
 	public String toString() {
 		return "AdminModel [adminId=" + adminId + ", adminName=" + adminName + ", adminPassword=" + adminPassword
-				+ ", role=" + role + ", adminEmail=" + adminEmail + ", adminPhone=" + adminPhone + "]";
+				+ ", role=" + role + ", adminEmail=" + adminEmail + ", adminPhone=" + adminPhone + ", deleteFlag="
+				+ deleteFlag + "]";
 	}
+
 	
 	
 	
