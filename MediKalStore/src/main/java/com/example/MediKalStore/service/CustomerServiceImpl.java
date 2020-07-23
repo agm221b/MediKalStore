@@ -34,10 +34,10 @@ public class CustomerServiceImpl implements CustomerService {
 	ProductRepository productRepository;
 
 	@Override
-	public Integer addProductToCart(ProductModel productModel, BigInteger cartId) {
+	public Integer addProductToCart(ProductModel productModel, BigInteger cartId,Integer quantity) {
 		// TODO Auto-generated method stub
 		CartModel cart = cartRepository.findByCartIdAndDeleteFlag(cartId, 0);				//create cart on creating User.
-		cart.getListOfProducts().add(productModel); 										//calculate cart amount and refresh
+		cart.getListOfProducts().put(productModel,quantity); 										//calculate cart amount and refresh
 		return 1;
 	}
 

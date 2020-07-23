@@ -11,7 +11,7 @@ import com.example.MediKalStore.Model.ProductModel;
 
 public interface CustomerService {
 	
-	Integer addProductToCart(ProductModel productModel, BigInteger cartId);
+	Integer addProductToCart(ProductModel productModel, BigInteger cartId,Integer quantity);
 	Integer removeProductFromCart(ProductModel productModel, BigInteger cartId);
 	List<ProductModel> searchProduct(String productName);
 	List<ProductModel> viewAllProduct();
