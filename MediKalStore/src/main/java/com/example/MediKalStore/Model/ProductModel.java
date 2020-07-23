@@ -39,6 +39,9 @@ public class ProductModel {
 	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
     private CartModel cart;
+	
+	@Column(name="delete_flag")
+	private int deleteFlag;
 
 	
 	public ProductModel()
@@ -48,7 +51,7 @@ public class ProductModel {
 
 
 	public ProductModel(BigInteger productId, String productName, String productDescription, String productQuantity,
-			LocalDate productExpDate, CartModel cart) {
+			LocalDate productExpDate, CartModel cart, int deleteFlag) {
 		super();
 		this.productId = productId;
 		this.productName = productName;
@@ -56,6 +59,7 @@ public class ProductModel {
 		this.productQuantity = productQuantity;
 		this.productExpDate = productExpDate;
 		this.cart = cart;
+		this.deleteFlag = deleteFlag;
 	}
 
 
@@ -119,11 +123,13 @@ public class ProductModel {
 	}
 
 
-	@Override
-	public String toString() {
-		return "ProductModel [productId=" + productId + ", productName=" + productName + ", productDescription="
-				+ productDescription + ", productQuantity=" + productQuantity + ", productExpDate=" + productExpDate
-				+ ", cart=" + cart + "]";
+	public int getDeleteFlag() {
+		return deleteFlag;
+	}
+
+
+	public void setDeleteFlag(int deleteFlag) {
+		this.deleteFlag = deleteFlag;
 	}
 
 
@@ -132,6 +138,7 @@ public class ProductModel {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((cart == null) ? 0 : cart.hashCode());
+		result = prime * result + deleteFlag;
 		result = prime * result + ((productDescription == null) ? 0 : productDescription.hashCode());
 		result = prime * result + ((productExpDate == null) ? 0 : productExpDate.hashCode());
 		result = prime * result + ((productId == null) ? 0 : productId.hashCode());
@@ -154,6 +161,8 @@ public class ProductModel {
 			if (other.cart != null)
 				return false;
 		} else if (!cart.equals(other.cart))
+			return false;
+		if (deleteFlag != other.deleteFlag)
 			return false;
 		if (productDescription == null) {
 			if (other.productDescription != null)
@@ -182,6 +191,16 @@ public class ProductModel {
 			return false;
 		return true;
 	}
+
+
+	@Override
+	public String toString() {
+		return "ProductModel [productId=" + productId + ", productName=" + productName + ", productDescription="
+				+ productDescription + ", productQuantity=" + productQuantity + ", productExpDate=" + productExpDate
+				+ ", cart=" + cart + ", deleteFlag=" + deleteFlag + "]";
+	}
+
+
 	
 	
 }
