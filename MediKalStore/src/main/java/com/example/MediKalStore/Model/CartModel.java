@@ -3,6 +3,7 @@ package com.example.MediKalStore.Model;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -40,9 +41,8 @@ public class CartModel {
             fetch = FetchType.LAZY, optional = false)
     private CustomerModel customer;
 	
-	
 	@OneToMany(mappedBy="cart")
-    private Set<ProductModel> listOfProducts;
+    private Map<ProductModel,Integer> listOfProducts;
 	
 	@Column(name="delete_flag")
 	private int deleteFlag;
@@ -53,7 +53,7 @@ public class CartModel {
 	}
 
 	public CartModel(BigInteger cartId, float cartAmount, String cartAddress, String cartPaymentMode,
-			CustomerModel customer, Set<ProductModel> listOfProducts, int deleteFlag) {
+			CustomerModel customer, Map<ProductModel, Integer> listOfProducts, int deleteFlag) {
 		super();
 		this.cartId = cartId;
 		this.cartAmount = cartAmount;
@@ -104,11 +104,11 @@ public class CartModel {
 		this.customer = customer;
 	}
 
-	public Set<ProductModel> getListOfProducts() {
+	public Map<ProductModel, Integer> getListOfProducts() {
 		return listOfProducts;
 	}
 
-	public void setListOfProducts(Set<ProductModel> listOfProducts) {
+	public void setListOfProducts(Map<ProductModel, Integer> listOfProducts) {
 		this.listOfProducts = listOfProducts;
 	}
 
