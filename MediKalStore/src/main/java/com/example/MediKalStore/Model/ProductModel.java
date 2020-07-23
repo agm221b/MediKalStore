@@ -31,7 +31,10 @@ public class ProductModel {
 	private String productDescription;
 	
 	@Column(name="product_qty")
-	private String productQuantity;
+	private Integer productQuantity;
+	
+	@Column(name="product_price")
+	private Double productPrice;
 	
 	@Column(name="product_exp_date")
 	private LocalDate productExpDate;
@@ -50,13 +53,14 @@ public class ProductModel {
 	}
 
 
-	public ProductModel(BigInteger productId, String productName, String productDescription, String productQuantity,
-			LocalDate productExpDate, CartModel cart, int deleteFlag) {
+	public ProductModel(BigInteger productId, String productName, String productDescription, Integer productQuantity,
+			Double productPrice, LocalDate productExpDate, CartModel cart, int deleteFlag) {
 		super();
 		this.productId = productId;
 		this.productName = productName;
 		this.productDescription = productDescription;
 		this.productQuantity = productQuantity;
+		this.productPrice = productPrice;
 		this.productExpDate = productExpDate;
 		this.cart = cart;
 		this.deleteFlag = deleteFlag;
@@ -93,13 +97,23 @@ public class ProductModel {
 	}
 
 
-	public String getProductQuantity() {
+	public Integer getProductQuantity() {
 		return productQuantity;
 	}
 
 
-	public void setProductQuantity(String productQuantity) {
+	public void setProductQuantity(Integer productQuantity) {
 		this.productQuantity = productQuantity;
+	}
+
+
+	public Double getProductPrice() {
+		return productPrice;
+	}
+
+
+	public void setProductPrice(Double productPrice) {
+		this.productPrice = productPrice;
 	}
 
 
@@ -143,6 +157,7 @@ public class ProductModel {
 		result = prime * result + ((productExpDate == null) ? 0 : productExpDate.hashCode());
 		result = prime * result + ((productId == null) ? 0 : productId.hashCode());
 		result = prime * result + ((productName == null) ? 0 : productName.hashCode());
+		result = prime * result + ((productPrice == null) ? 0 : productPrice.hashCode());
 		result = prime * result + ((productQuantity == null) ? 0 : productQuantity.hashCode());
 		return result;
 	}
@@ -184,6 +199,11 @@ public class ProductModel {
 				return false;
 		} else if (!productName.equals(other.productName))
 			return false;
+		if (productPrice == null) {
+			if (other.productPrice != null)
+				return false;
+		} else if (!productPrice.equals(other.productPrice))
+			return false;
 		if (productQuantity == null) {
 			if (other.productQuantity != null)
 				return false;
@@ -196,11 +216,12 @@ public class ProductModel {
 	@Override
 	public String toString() {
 		return "ProductModel [productId=" + productId + ", productName=" + productName + ", productDescription="
-				+ productDescription + ", productQuantity=" + productQuantity + ", productExpDate=" + productExpDate
-				+ ", cart=" + cart + ", deleteFlag=" + deleteFlag + "]";
+				+ productDescription + ", productQuantity=" + productQuantity + ", productPrice=" + productPrice
+				+ ", productExpDate=" + productExpDate + ", cart=" + cart + ", deleteFlag=" + deleteFlag + "]";
 	}
 
 
+	
 	
 	
 }
