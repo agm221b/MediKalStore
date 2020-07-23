@@ -25,6 +25,8 @@ public interface CustomerService {
 	CustomerModel editDetails(CustomerModel customerModel);
 	//add address aggregation later on, change address option
 	
+	Integer refreshAmount(BigInteger cartId);
+	
 	
 
 }

@@ -1,7 +1,10 @@
 package com.example.MediKalStore.service;
 
 import java.math.BigInteger;
+import java.util.Enumeration;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +42,8 @@ public class CustomerServiceImpl implements CustomerService {
 		// TODO Auto-generated method stub
 		CartModel cart = cartRepository.findByCartIdAndDeleteFlag(customerRepository.findByCustomerIdAndDeleteFlag(customerId, 0).getCart().getCartId(), 0);				//create cart on creating User. //cartID -> customerID
 		cart.getListOfProducts().put(productModel,quantity); 										//calculate cart amount and refresh
+		refreshAmount(cart.getCartId());																//refetching cart would work? 		//need to save it again?
+		cartRepository.save(cart);
 		return 1;
 	}
 
@@ -47,6 +52,8 @@ public class CustomerServiceImpl implements CustomerService {
 		// TODO Auto-generated method stub
 		CartModel cart = cartRepository.findByCartIdAndDeleteFlag(cartId, 0);				//create cart on creating User.
 		cart.getListOfProducts().remove(productModel);										//calculate cart amount and refresh
+		refreshAmount(cart.getCartId());													//refetching cart would work? 		//need to save it again?
+		cartRepository.save(cart);
 		return 1;
 	}
 
@@ -87,5 +94,22 @@ public class CustomerServiceImpl implements CustomerService {
 		// TODO Auto-generated method stub
 		return customerRepository.save(customerModel);												//diresctly					
 	}
+
+	@Override
+	public Integer refreshAmount(BigInteger cartId) {
+		// TODO Auto-generated method stub
+		CartModel cart= cartRepository.findByCartIdAndDeleteFlag(cartId, 0);
+		Map<ProductModel, Integer> prodList =cart.getListOfProducts();
+		Double amount = 0.0;
+		for(ProductModel prod : prodList.keySet())
+		{
+			amount+= prod.getProductPrice()*prodList.get(prod);
+		}
+		cart.setCartAmount(amount);
+		cartRepository.save(cart);													//saving the existing cart updated with price
+		return 1;
+	}
+	
+	
 
 }
