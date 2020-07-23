@@ -34,9 +34,9 @@ public class CustomerServiceImpl implements CustomerService {
 	ProductRepository productRepository;
 
 	@Override
-	public Integer addProductToCart(ProductModel productModel, BigInteger cartId) {
+	public Integer addProductToCart(ProductModel productModel, BigInteger customerId) {			
 		// TODO Auto-generated method stub
-		CartModel cart = cartRepository.findByCartIdAndDeleteFlag(cartId, 0);				//create cart on creating User.
+		CartModel cart = cartRepository.findByCartIdAndDeleteFlag(customerRepository.findByCustomerIdAndDeleteFlag(customerId, 0).getCart().getCartId(), 0);				//create cart on creating User. //cartID -> customerID
 		cart.getListOfProducts().add(productModel); 										//calculate cart amount and refresh
 		return 1;
 	}
