@@ -2,7 +2,10 @@ package com.example.MediKalStore.service;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.example.MediKalStore.Model.OrderModel;
 import com.example.MediKalStore.Model.ProductModel;
@@ -19,6 +22,8 @@ import com.example.MediKalStore.repository.ProductRepository;
  * Class that performs service level operations of Admin
  *
  */
+@Service
+@Transactional
 public class AdminServiceImpl implements AdminService{
 	
 	@Autowired

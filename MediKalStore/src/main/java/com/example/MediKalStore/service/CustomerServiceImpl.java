@@ -7,7 +7,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.example.MediKalStore.Model.CartModel;
 import com.example.MediKalStore.Model.CustomerModel;
@@ -19,6 +22,8 @@ import com.example.MediKalStore.repository.CustomerRepository;
 import com.example.MediKalStore.repository.OrderRepository;
 import com.example.MediKalStore.repository.ProductRepository;
 
+@Service
+@Transactional
 public class CustomerServiceImpl implements CustomerService {
 	
 	@Autowired
