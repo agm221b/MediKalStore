@@ -1,20 +1,33 @@
 package com.example.MediKalStore.Model;
 
+import java.math.BigInteger;
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity 
+@EntityListeners(AuditingEntityListener.class)
 @Table(name="Admin_Table")
 public class AdminModel {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="admin_id")
-	private Boolean adminId;
+	private BigInteger adminId;
 	
 	@Column(name="admin_name")
 	private String adminName;
@@ -34,12 +47,25 @@ public class AdminModel {
 	@Column(name="delete_flag")
 	private int deleteFlag;
 	
+	@CreatedBy
+	protected String createdBy;
+	
+	@CreatedDate	
+	@Temporal(TemporalType.TIMESTAMP)
+	protected Date creationDate;
+	
+	@LastModifiedBy
+	protected String lastModifiedBy;
+	
+	@LastModifiedDate
+	protected String lastModifiedDate;
+	
 	public AdminModel()
 	{
 		
 	}
 
-	public AdminModel(Boolean adminId, String adminName, String adminPassword, String role, String adminEmail,
+	public AdminModel(BigInteger adminId, String adminName, String adminPassword, String role, String adminEmail,
 			String adminPhone, int deleteFlag) {
 		super();
 		this.adminId = adminId;
@@ -51,11 +77,11 @@ public class AdminModel {
 		this.deleteFlag =  deleteFlag;
 	}
 
-	public Boolean getAdminId() {
+	public BigInteger getAdminId() {
 		return adminId;
 	}
 
-	public void setAdminId(Boolean adminId) {
+	public void setAdminId(BigInteger adminId) {
 		this.adminId = adminId;
 	}
 
@@ -106,6 +132,40 @@ public class AdminModel {
 	public void setAdminPhone(String adminPhone) {
 		this.adminPhone = adminPhone;
 	}
+	
+	
+	public String getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	public Date getCreationDate() {
+		return creationDate;
+	}
+
+	public void setCreationDate(Date creationDate) {
+		this.creationDate = creationDate;
+	}
+
+	public String getLastModifiedBy() {
+		return lastModifiedBy;
+	}
+
+	public void setLastModifiedBy(String lastModifiedBy) {
+		this.lastModifiedBy = lastModifiedBy;
+	}
+
+	public String getLastModifiedDate() {
+		return lastModifiedDate;
+	}
+
+	public void setLastModifiedDate(String lastModifiedDate) {
+		this.lastModifiedDate = lastModifiedDate;
+	}
+	
 
 	@Override
 	public int hashCode() {

@@ -1,12 +1,14 @@
 package com.example.MediKalStore.Model;
 
 import java.math.BigInteger;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,10 +17,19 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 @Table(name="Customer_Table")
 public class CustomerModel {
 
@@ -51,6 +62,19 @@ public class CustomerModel {
 	 
 	 @OneToMany(mappedBy="customer", fetch = FetchType.LAZY)
 	 private Set<OrderModel> listOfOrders=new HashSet<OrderModel>();
+	 
+	 @CreatedBy
+	protected String createdBy;
+		
+	@CreatedDate	
+	@Temporal(TemporalType.TIMESTAMP)
+	protected Date creationDate;
+		
+	@LastModifiedBy
+	protected String lastModifiedBy;
+		
+	@LastModifiedDate
+	protected String lastModifiedDate;
 	
 	public CustomerModel()
 	{
@@ -211,6 +235,40 @@ public class CustomerModel {
 
 	public void setListOfOrders(Set<OrderModel> listOfOrders) {
 		this.listOfOrders = listOfOrders;
+	}
+
+	
+	
+	public String getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	public Date getCreationDate() {
+		return creationDate;
+	}
+
+	public void setCreationDate(Date creationDate) {
+		this.creationDate = creationDate;
+	}
+
+	public String getLastModifiedBy() {
+		return lastModifiedBy;
+	}
+
+	public void setLastModifiedBy(String lastModifiedBy) {
+		this.lastModifiedBy = lastModifiedBy;
+	}
+
+	public String getLastModifiedDate() {
+		return lastModifiedDate;
+	}
+
+	public void setLastModifiedDate(String lastModifiedDate) {
+		this.lastModifiedDate = lastModifiedDate;
 	}
 
 	@Override
