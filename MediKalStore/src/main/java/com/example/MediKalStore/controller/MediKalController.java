@@ -1,13 +1,16 @@
 package com.example.MediKalStore.controller;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.MediKalStore.Model.OrderModel;
@@ -105,6 +108,23 @@ public class MediKalController {
 		else
 		{
 			return new ResponseEntity<String>("No order found",HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	@DeleteMapping("/deleteProduct")
+	public ResponseEntity<?> deleteProduct(@RequestParam("productId") BigInteger productId )
+	{
+		boolean isDeleted = adminService.deleteProduct(productId);
+		if(isDeleted == true)
+		{
+			return new ResponseEntity<String>("Product deleted successfully",HttpStatus.OK);
+		}
+		else if(isDeleted == false)
+		{
+			return new ResponseEntity<String>("Product not deleted",HttpStatus.OK);
+		}
+		else
+		{
+			return new ResponseEntity<String>("Error",HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	

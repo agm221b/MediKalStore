@@ -1,5 +1,6 @@
 package com.example.MediKalStore.service;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import com.example.MediKalStore.Model.OrderModel;
@@ -11,9 +12,8 @@ public interface AdminService {
 	ProductModel addProductQuantity(ProductModel productModel);
 	ProductModel removeProductQuantity(ProductModel productModel);
 	ProductModel editProduct(ProductModel productModel);
-	
 	List<ProductModel> viewAllProducts();
-	
 	List<OrderModel> viewAllOrders();
+	Boolean deleteProduct(BigInteger productId);
 
 }
