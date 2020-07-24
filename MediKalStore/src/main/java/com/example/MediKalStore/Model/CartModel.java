@@ -41,7 +41,7 @@ public class CartModel {
 	private BigInteger cartId;
 	
 	@Column(name="cart_amount")
-	private float cartAmount;
+	private Double cartAmount;
 	
 	@Column(name="cart_address")
 	private String cartAddress;
@@ -77,7 +77,7 @@ public class CartModel {
 		
 	}
 
-	public CartModel(BigInteger cartId, float cartAmount, String cartAddress, String cartPaymentMode,
+	public CartModel(BigInteger cartId, Double cartAmount, String cartAddress, String cartPaymentMode,
 			CustomerModel customer, Map<ProductModel, Integer> listOfProducts, int deleteFlag) {
 		super();
 		this.cartId = cartId;
@@ -97,11 +97,11 @@ public class CartModel {
 		this.cartId = cartId;
 	}
 
-	public float getCartAmount() {
+	public Double getCartAmount() {
 		return cartAmount;
 	}
 
-	public void setCartAmount(float cartAmount) {
+	public void setCartAmount(Double cartAmount) {
 		this.cartAmount = cartAmount;
 	}
 
@@ -184,7 +184,7 @@ public class CartModel {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((cartAddress == null) ? 0 : cartAddress.hashCode());
-		result = prime * result + Float.floatToIntBits(cartAmount);
+		result = prime * result + ((cartAmount == null) ? 0 : cartAmount.hashCode());
 		result = prime * result + ((cartId == null) ? 0 : cartId.hashCode());
 		result = prime * result + ((cartPaymentMode == null) ? 0 : cartPaymentMode.hashCode());
 		result = prime * result + ((customer == null) ? 0 : customer.hashCode());
@@ -207,7 +207,10 @@ public class CartModel {
 				return false;
 		} else if (!cartAddress.equals(other.cartAddress))
 			return false;
-		if (Float.floatToIntBits(cartAmount) != Float.floatToIntBits(other.cartAmount))
+		if (cartAmount == null) {
+			if (other.cartAmount != null)
+				return false;
+		} else if (!cartAmount.equals(other.cartAmount))
 			return false;
 		if (cartId == null) {
 			if (other.cartId != null)

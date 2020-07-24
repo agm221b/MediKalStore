@@ -11,7 +11,8 @@ import com.example.MediKalStore.Model.ProductModel;
 
 public interface CustomerService {
 	
-	Integer addProductToCart(ProductModel productModel, BigInteger cartId,Integer quantity);
+
+	Integer addProductToCart(ProductModel productModel, BigInteger customerId,Integer quantity);
 	Integer removeProductFromCart(ProductModel productModel, BigInteger cartId);
 	List<ProductModel> searchProduct(String productName);
 	List<ProductModel> viewAllProduct();
@@ -23,6 +24,8 @@ public interface CustomerService {
 	
 	CustomerModel editDetails(CustomerModel customerModel);
 	//add address aggregation later on, change address option
+	
+	Integer refreshAmount(BigInteger cartId);
 	
 	
 
