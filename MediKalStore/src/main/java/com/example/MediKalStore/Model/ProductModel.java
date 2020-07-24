@@ -50,9 +50,9 @@ public class ProductModel {
 	@Column(name="product_exp_date")
 	private LocalDate productExpDate;
 	
-	@JsonIgnore
-	@ManyToOne(fetch = FetchType.LAZY)
-    private CartModel cart;
+//	@JsonIgnore
+//	@ManyToOne(fetch = FetchType.LAZY)
+//    private CartModel cart;
 	
 	@Column(name="delete_flag")
 	private int deleteFlag;
@@ -78,7 +78,7 @@ public class ProductModel {
 
 
 	public ProductModel(BigInteger productId, String productName, String productDescription, Integer productQuantity,
-			Double productPrice, LocalDate productExpDate, CartModel cart, int deleteFlag) {
+			Double productPrice, LocalDate productExpDate, int deleteFlag) {
 		super();
 		this.productId = productId;
 		this.productName = productName;
@@ -86,7 +86,6 @@ public class ProductModel {
 		this.productQuantity = productQuantity;
 		this.productPrice = productPrice;
 		this.productExpDate = productExpDate;
-		this.cart = cart;
 		this.deleteFlag = deleteFlag;
 	}
 
@@ -151,15 +150,6 @@ public class ProductModel {
 	}
 
 
-	public CartModel getCart() {
-		return cart;
-	}
-
-
-	public void setCart(CartModel cart) {
-		this.cart = cart;
-	}
-
 
 	public int getDeleteFlag() {
 		return deleteFlag;
@@ -175,7 +165,6 @@ public class ProductModel {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((cart == null) ? 0 : cart.hashCode());
 		result = prime * result + deleteFlag;
 		result = prime * result + ((productDescription == null) ? 0 : productDescription.hashCode());
 		result = prime * result + ((productExpDate == null) ? 0 : productExpDate.hashCode());
@@ -196,11 +185,6 @@ public class ProductModel {
 		if (getClass() != obj.getClass())
 			return false;
 		ProductModel other = (ProductModel) obj;
-		if (cart == null) {
-			if (other.cart != null)
-				return false;
-		} else if (!cart.equals(other.cart))
-			return false;
 		if (deleteFlag != other.deleteFlag)
 			return false;
 		if (productDescription == null) {
@@ -241,7 +225,7 @@ public class ProductModel {
 	public String toString() {
 		return "ProductModel [productId=" + productId + ", productName=" + productName + ", productDescription="
 				+ productDescription + ", productQuantity=" + productQuantity + ", productPrice=" + productPrice
-				+ ", productExpDate=" + productExpDate + ", cart=" + cart + ", deleteFlag=" + deleteFlag + "]";
+				+ ", productExpDate=" + productExpDate + ", deleteFlag=" + deleteFlag + "]";
 	}
 
 

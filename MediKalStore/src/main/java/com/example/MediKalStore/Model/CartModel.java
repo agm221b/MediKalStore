@@ -3,19 +3,24 @@ package com.example.MediKalStore.Model;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
+import javax.persistence.EnumType;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MapKey;
+import javax.persistence.MapKeyColumn;
+import javax.persistence.MapKeyEnumerated;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -53,8 +58,16 @@ public class CartModel {
             fetch = FetchType.LAZY, optional = false)
     private CustomerModel customer;
 	
-	@OneToMany(mappedBy="cart", cascade=CascadeType.PERSIST)
-    private Map<ProductModel,Integer> listOfProducts;
+//	
+//	@ElementCollection
+//	@OneToMany(mappedBy="cart")
+//    private Map<ProductModel,Integer> listOfProducts;
+	
+	@ElementCollection
+	@MapKeyColumn(name = "product_type")
+	@MapKeyEnumerated(EnumType.STRING)
+	private Map<ProductModel, Integer>listOfProducts = new HashMap<ProductModel, Integer>();
+
 	
 	@Column(name="delete_flag")
 	private int deleteFlag;
