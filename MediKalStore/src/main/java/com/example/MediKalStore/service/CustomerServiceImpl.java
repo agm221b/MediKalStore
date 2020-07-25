@@ -114,6 +114,8 @@ public class CustomerServiceImpl implements CustomerService {
 		cartRepository.save(cart);													//saving the existing cart updated with price
 		return 1;
 	}
+
+	
 	
 	
 

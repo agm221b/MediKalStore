@@ -1,5 +1,6 @@
 package com.example.MediKalStore.service;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -91,6 +92,22 @@ public class AdminServiceImpl implements AdminService{
 	public List<OrderModel> viewAllOrders() {
 		// TODO Auto-generated method stub
 		return orderRepository.findByDeleteFlag(0);
+	}
+	
+	@Override
+	public Boolean deleteProduct(BigInteger productId) {
+		// TODO Auto-generated method stub
+		ProductModel product = productRepository.findById(productId).get();
+		product.setDeleteFlag(1);
+		if(product.getDeleteFlag()==1)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+		
 	}
 
 }
