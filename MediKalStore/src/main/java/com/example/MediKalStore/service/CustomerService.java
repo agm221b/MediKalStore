@@ -13,19 +13,22 @@ public interface CustomerService {
 	
 
 	Integer addProductToCart(ProductModel productModel, BigInteger customerId,Integer quantity);
-	Integer removeProductFromCart(ProductModel productModel, BigInteger cartId);
+	Integer removeProductFromCart(ProductModel productModel, BigInteger customerId); 
 	List<ProductModel> searchProduct(String productName);
 	List<ProductModel> viewAllProduct();
 	CartModel checkoutCart(CartModel cartModel);
 	//integrate payment via 3rd party
 	
 	Set<OrderModel> viewHisOrders(BigInteger customerId);
+	
 	Integer cancelOrder(BigInteger orderId);
 	
 	CustomerModel editDetails(CustomerModel customerModel);
 	//add address aggregation later on, change address option
 	
 	Integer refreshAmount(BigInteger cartId);
+	
+	
 	
 	
 

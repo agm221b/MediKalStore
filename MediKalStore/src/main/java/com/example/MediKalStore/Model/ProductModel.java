@@ -57,6 +57,9 @@ public class ProductModel {
 	@Column(name="delete_flag")
 	private int deleteFlag;
 	
+	@Column(name="image_url")
+	private String url;
+	
 	@CreatedBy
 	protected String createdBy;
 	
@@ -76,9 +79,9 @@ public class ProductModel {
 		
 	}
 
-
 	public ProductModel(BigInteger productId, String productName, String productDescription, Integer productQuantity,
-			Double productPrice, LocalDate productExpDate, int deleteFlag) {
+			Double productPrice, LocalDate productExpDate, int deleteFlag, String url, String createdBy,
+			Date creationDate, String lastModifiedBy, String lastModifiedDate) {
 		super();
 		this.productId = productId;
 		this.productName = productName;
@@ -87,7 +90,14 @@ public class ProductModel {
 		this.productPrice = productPrice;
 		this.productExpDate = productExpDate;
 		this.deleteFlag = deleteFlag;
+		this.url = url;
+		this.createdBy = createdBy;
+		this.creationDate = creationDate;
+		this.lastModifiedBy = lastModifiedBy;
+		this.lastModifiedDate = lastModifiedDate;
 	}
+
+
 
 
 	public BigInteger getProductId() {
@@ -159,22 +169,68 @@ public class ProductModel {
 	public void setDeleteFlag(int deleteFlag) {
 		this.deleteFlag = deleteFlag;
 	}
+	
+	
 
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public String getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	public Date getCreationDate() {
+		return creationDate;
+	}
+
+	public void setCreationDate(Date creationDate) {
+		this.creationDate = creationDate;
+	}
+
+	public String getLastModifiedBy() {
+		return lastModifiedBy;
+	}
+
+	public void setLastModifiedBy(String lastModifiedBy) {
+		this.lastModifiedBy = lastModifiedBy;
+	}
+
+	public String getLastModifiedDate() {
+		return lastModifiedDate;
+	}
+
+	public void setLastModifiedDate(String lastModifiedDate) {
+		this.lastModifiedDate = lastModifiedDate;
+	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((createdBy == null) ? 0 : createdBy.hashCode());
+		result = prime * result + ((creationDate == null) ? 0 : creationDate.hashCode());
 		result = prime * result + deleteFlag;
+		result = prime * result + ((lastModifiedBy == null) ? 0 : lastModifiedBy.hashCode());
+		result = prime * result + ((lastModifiedDate == null) ? 0 : lastModifiedDate.hashCode());
 		result = prime * result + ((productDescription == null) ? 0 : productDescription.hashCode());
 		result = prime * result + ((productExpDate == null) ? 0 : productExpDate.hashCode());
 		result = prime * result + ((productId == null) ? 0 : productId.hashCode());
 		result = prime * result + ((productName == null) ? 0 : productName.hashCode());
 		result = prime * result + ((productPrice == null) ? 0 : productPrice.hashCode());
 		result = prime * result + ((productQuantity == null) ? 0 : productQuantity.hashCode());
+		result = prime * result + ((url == null) ? 0 : url.hashCode());
 		return result;
 	}
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -185,7 +241,27 @@ public class ProductModel {
 		if (getClass() != obj.getClass())
 			return false;
 		ProductModel other = (ProductModel) obj;
+		if (createdBy == null) {
+			if (other.createdBy != null)
+				return false;
+		} else if (!createdBy.equals(other.createdBy))
+			return false;
+		if (creationDate == null) {
+			if (other.creationDate != null)
+				return false;
+		} else if (!creationDate.equals(other.creationDate))
+			return false;
 		if (deleteFlag != other.deleteFlag)
+			return false;
+		if (lastModifiedBy == null) {
+			if (other.lastModifiedBy != null)
+				return false;
+		} else if (!lastModifiedBy.equals(other.lastModifiedBy))
+			return false;
+		if (lastModifiedDate == null) {
+			if (other.lastModifiedDate != null)
+				return false;
+		} else if (!lastModifiedDate.equals(other.lastModifiedDate))
 			return false;
 		if (productDescription == null) {
 			if (other.productDescription != null)
@@ -217,19 +293,22 @@ public class ProductModel {
 				return false;
 		} else if (!productQuantity.equals(other.productQuantity))
 			return false;
+		if (url == null) {
+			if (other.url != null)
+				return false;
+		} else if (!url.equals(other.url))
+			return false;
 		return true;
 	}
-
 
 	@Override
 	public String toString() {
 		return "ProductModel [productId=" + productId + ", productName=" + productName + ", productDescription="
 				+ productDescription + ", productQuantity=" + productQuantity + ", productPrice=" + productPrice
-				+ ", productExpDate=" + productExpDate + ", deleteFlag=" + deleteFlag + "]";
+				+ ", productExpDate=" + productExpDate + ", deleteFlag=" + deleteFlag + ", url=" + url + ", createdBy="
+				+ createdBy + ", creationDate=" + creationDate + ", lastModifiedBy=" + lastModifiedBy
+				+ ", lastModifiedDate=" + lastModifiedDate + "]";
 	}
 
-
-	
-	
-	
+		
 }

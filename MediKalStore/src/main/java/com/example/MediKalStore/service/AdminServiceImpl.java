@@ -1,8 +1,12 @@
 package com.example.MediKalStore.service;
 
+import java.math.BigInteger;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.example.MediKalStore.Model.OrderModel;
 import com.example.MediKalStore.Model.ProductModel;
@@ -19,6 +23,8 @@ import com.example.MediKalStore.repository.ProductRepository;
  * Class that performs service level operations of Admin
  *
  */
+@Service
+@Transactional
 public class AdminServiceImpl implements AdminService{
 	
 	@Autowired
@@ -86,6 +92,22 @@ public class AdminServiceImpl implements AdminService{
 	public List<OrderModel> viewAllOrders() {
 		// TODO Auto-generated method stub
 		return orderRepository.findByDeleteFlag(0);
+	}
+	
+	@Override
+	public Boolean deleteProduct(BigInteger productId) {
+		// TODO Auto-generated method stub
+		ProductModel product = productRepository.findById(productId).get();
+		product.setDeleteFlag(1);
+		if(product.getDeleteFlag()==1)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+		
 	}
 
 }
