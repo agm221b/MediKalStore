@@ -1,5 +1,6 @@
 package com.example.MediKalStore.service;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -7,6 +8,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.MediKalStore.Model.CustomerModel;
 import com.example.MediKalStore.Model.OrderModel;
 import com.example.MediKalStore.Model.ProductModel;
 import com.example.MediKalStore.repository.AdminRepository;
@@ -93,4 +95,33 @@ public class AdminServiceImpl implements AdminService{
 		return orderRepository.findByDeleteFlag(0);
 	}
 
+	@Override
+	public Integer deleteProductFromDatabase(BigInteger productId) {
+		// TODO Auto-generated method stub
+		productRepository.findByProductIdAndDeleteFlag(productId, 0).setDeleteFlag(1);
+		return 1;
+	}
+
+	@Override
+	public Integer deleteOrderFromDatabase(BigInteger orderId) {
+		// TODO Auto-generated method stub
+		orderRepository.findByOrderIdAndDeleteFlag(orderId, 0).setDeleteFlag(1);
+		return 1;
+	}
+
+	@Override
+	public Integer deleteCustomerFromDatabase(BigInteger customerId) {
+		// TODO Auto-generated method stub
+		CustomerModel cust =customerRepository.findByCustomerIdAndDeleteFlag(customerId, 0);
+		cust.getCart().setDeleteFlag(1);
+		cust.setDeleteFlag(1);
+		return 1;
+	}
+	
+	
+	
+	
+
+	
+	
 }

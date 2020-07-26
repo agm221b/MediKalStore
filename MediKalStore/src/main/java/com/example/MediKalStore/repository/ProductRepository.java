@@ -12,5 +12,7 @@ import com.example.MediKalStore.Model.ProductModel;
 public interface ProductRepository extends JpaRepository<ProductModel, BigInteger> {
 	
 	List<ProductModel> findByDeleteFlag(int deleteFlag);
+	
+	ProductModel findByProductIdAndDeleteFlag(BigInteger productId, int deleteFlag);
 
 }

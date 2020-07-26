@@ -13,5 +13,7 @@ public interface OrderRepository extends JpaRepository<OrderModel, BigInteger> {
 	
 	List<OrderModel> findByDeleteFlag(int deleteFlag);
 	
+	OrderModel findByOrderIdAndDeleteFlag(BigInteger orderId, int deleteFlag);
+	
 
 }
