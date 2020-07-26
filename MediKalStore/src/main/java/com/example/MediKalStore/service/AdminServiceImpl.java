@@ -94,6 +94,8 @@ public class AdminServiceImpl implements AdminService{
 		// TODO Auto-generated method stub
 		return orderRepository.findByDeleteFlag(0);
 	}
+	
+	
 
 	@Override
 	public Integer deleteProductFromDatabase(BigInteger productId) {

@@ -14,13 +14,15 @@ public interface AdminService {
 	ProductModel editProduct(ProductModel productModel);
 	Integer deleteProductFromDatabase(BigInteger productId);
 	
+
 	List<ProductModel> viewAllProducts();
-	
 	List<OrderModel> viewAllOrders();
+
 	
 	Integer deleteOrderFromDatabase(BigInteger orderId);
 	
 	Integer deleteCustomerFromDatabase(BigInteger customerId);
 	
+
 
 }

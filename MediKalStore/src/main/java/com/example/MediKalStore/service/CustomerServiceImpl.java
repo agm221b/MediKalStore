@@ -53,9 +53,9 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	@Override
-	public Integer removeProductFromCart(ProductModel productModel, BigInteger cartId) {
+	public Integer removeProductFromCart(ProductModel productModel, BigInteger customerId) {
 		// TODO Auto-generated method stub
-		CartModel cart = cartRepository.findByCartIdAndDeleteFlag(cartId, 0);				//create cart on creating User.
+		CartModel cart = cartRepository.findByCartIdAndDeleteFlag(customerRepository.findByCustomerIdAndDeleteFlag(customerId, 0).getCart().getCartId(), 0);				//create cart on creating User.
 		cart.getListOfProducts().remove(productModel);										//calculate cart amount and refresh
 		refreshAmount(cart.getCartId());													//refetching cart would work? 		//need to save it again?
 		cartRepository.save(cart);
@@ -114,6 +114,8 @@ public class CustomerServiceImpl implements CustomerService {
 		cartRepository.save(cart);													//saving the existing cart updated with price
 		return 1;
 	}
+
+	
 	
 	
 

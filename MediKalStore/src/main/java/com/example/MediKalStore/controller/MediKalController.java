@@ -1,15 +1,20 @@
 package com.example.MediKalStore.controller;
 
+import java.math.BigInteger;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.MediKalStore.Model.CustomerModel;
 import com.example.MediKalStore.Model.OrderModel;
 import com.example.MediKalStore.Model.ProductModel;
 import com.example.MediKalStore.service.AdminServiceImpl;
@@ -105,6 +110,144 @@ public class MediKalController {
 		else
 		{
 			return new ResponseEntity<String>("No order found",HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	@DeleteMapping("/deleteProduct")
+	public ResponseEntity<?> deleteProduct(@RequestParam("productId") BigInteger productId )
+	{
+		int isDeleted = 0;
+		isDeleted = adminService.deleteProductFromDatabase(productId);
+		if(isDeleted == 1)
+		{
+			return new ResponseEntity<String>("Product deleted successfully",HttpStatus.OK);
+		}
+		else if(isDeleted == 0)
+		{
+			return new ResponseEntity<String>("Product not deleted",HttpStatus.OK);
+		}
+		else
+		{
+			return new ResponseEntity<String>("Error",HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	@PostMapping("/addProductToCart")
+	public ResponseEntity<?> addProductToCart(@RequestBody ProductModel product,@RequestParam("customerId") BigInteger customerId,@RequestParam("productQuantity") Integer quantity)
+	{
+		Integer isAdded = customerService.addProductToCart(product, customerId, quantity);
+		if(isAdded == 1)
+		{
+			return new ResponseEntity<String>("Product added to the cart",HttpStatus.OK);
+		}
+		else
+		{
+			return new ResponseEntity<String>("not added to the cart",HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	@PostMapping("/removeProductFromCart")
+	public ResponseEntity<?> removeProductFromCart(@RequestBody ProductModel product,@RequestParam("customerId") BigInteger customerId)
+	{
+		Integer isRemoved = customerService.removeProductFromCart(product, customerId);
+		if(isRemoved == 1)
+		{
+			return new ResponseEntity<String>("Product removed from the cart",HttpStatus.OK);
+		}
+		else
+		{
+			return new ResponseEntity<String>("Product not removed from the cart",HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	@GetMapping("/searchProduct")
+	public ResponseEntity<?> searchProduct(@RequestParam("productName") String productName)
+	{
+		List<ProductModel> productList = customerService.searchProduct(productName);
+		if(productList!=null)
+		{
+			return new ResponseEntity<List>(productList,HttpStatus.OK);
+		}
+		else if(productList == null)
+		{
+			return new ResponseEntity<String>("Sorry,no product of this name found ",HttpStatus.OK);
+		}
+		else
+		{
+			return new ResponseEntity<String>("Error",HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	@GetMapping("/viewAllProduct")
+	public ResponseEntity<?> viewAllProduct()
+	{
+		List<ProductModel> productList = customerService.viewAllProduct();
+		if(productList!=null)
+		{
+			return new ResponseEntity<List>(productList,HttpStatus.OK);
+		}
+		else if(productList == null)
+		{
+			return new ResponseEntity<String>("Sorry,no product of this name found ",HttpStatus.OK);
+		}
+		else
+		{
+			return new ResponseEntity<String>("Error",HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	@GetMapping("/viewHisOrders")
+	public ResponseEntity<?> viewHisOrders(@RequestParam("customerId") BigInteger customerId)
+	{
+		Set<OrderModel> orderHistory = customerService.viewHisOrders(customerId);
+		if(orderHistory!=null)
+		{
+			return new ResponseEntity<Set>(orderHistory,HttpStatus.OK);
+		}
+		else
+		{
+			return new ResponseEntity<String>("Error!",HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	@PostMapping("/cancelOrder")
+	public ResponseEntity<?> cancelOrder(@RequestParam("orderId") BigInteger orderId)
+	{
+		Integer status = customerService.cancelOrder(orderId);
+		if(status == 1)
+		{
+			return new ResponseEntity<String>("Order cancelled",HttpStatus.OK);
+		}
+		else
+		{
+			return new ResponseEntity<String>("Not cancelled",HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	@PostMapping("/editDetails")
+	public ResponseEntity<?> editDetails(@RequestBody CustomerModel customer)
+	{
+		CustomerModel editedCustomer = customerService.editDetails(customer);
+		if(editedCustomer!=null)
+		{
+			return new ResponseEntity<CustomerModel>(editedCustomer,HttpStatus.OK);
+		}
+		else
+		{
+			return new ResponseEntity<String>("Error",HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	@PostMapping("/refreshAmount")
+	public ResponseEntity<?> refreshAmount(@RequestParam("cartId") BigInteger cartId)
+	{
+		Integer isUpdated = customerService.refreshAmount(cartId);
+		if(isUpdated == 1)
+		{
+			return new ResponseEntity<String>("Amount updated",HttpStatus.OK);
+		}
+		else
+		{
+			return new ResponseEntity<String>("Amount not updated",HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
